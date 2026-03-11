@@ -240,6 +240,18 @@
             background: var(--bg-primary);
         }
 
+        /* Dark mode button fixes */
+        [data-theme="dark"] .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        [data-theme="dark"] .btn-secondary:hover {
+            background: var(--bg-primary);
+            border-color: var(--accent);
+        }
+
         .social-links {
             display: flex;
             gap: 0.75rem;
@@ -264,6 +276,16 @@
             color: var(--accent);
             transform: translateY(-2px);
             box-shadow: var(--shadow-md);
+        }
+
+        [data-theme="dark"] .social-link {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+
+        [data-theme="dark"] .social-link:hover {
+            background: var(--accent);
+            color: white;
         }
 
         .social-link svg {
