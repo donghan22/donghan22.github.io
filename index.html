@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dong Han (韩东) - PhD Candidate</title>
+    <title>Dong Han (韩东) — Industrial PhD Candidate</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700;900&display=swap" rel="stylesheet">
@@ -19,6 +19,9 @@
             --accent-light: #dbeafe;
             --border: #e2e8f0;
             --border-hover: #cbd5e1;
+            --logo-surface: #ffffff;
+            --logo-border: #e2e8f0;
+            --profile-border: #ffffff;
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -42,6 +45,9 @@
             --accent-light: #1e3a5f;
             --border: #334155;
             --border-hover: #475569;
+            --logo-surface: #cbd5e1;
+            --logo-border: #64748b;
+            --profile-border: #475569;
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
@@ -299,7 +305,7 @@
             height: 240px;
             border-radius: var(--radius-xl);
             object-fit: cover;
-            border: 4px solid white;
+            border: 4px solid var(--profile-border);
             box-shadow: var(--shadow-xl);
             background: linear-gradient(135deg, var(--accent-light) 0%, #e0e7ff 100%);
             display: flex;
@@ -359,32 +365,37 @@
         }
 
         .logos-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
             align-items: center;
-            gap: 2rem;
+            gap: 1rem;
         }
 
         .logo-item {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0.5rem;
-            transition: all 0.3s ease;
+            height: 68px;
+            padding: 0.75rem 1rem;
+            background: var(--logo-surface);
+            border: 1px solid var(--logo-border);
+            border-radius: var(--radius-md);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .logo-item:hover {
             transform: translateY(-2px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-sm);
         }
 
         .logo-item img {
-            max-height: 50px;
-            max-width: 140px;
-            width: auto;
+            width: 100%;
+            height: 44px;
+            object-fit: contain;
             filter: grayscale(100%);
             opacity: 0.6;
-            transition: all 0.3s ease;
+            transition: filter 0.3s ease, opacity 0.3s ease;
         }
 
         .logo-item:hover img {
@@ -392,34 +403,38 @@
             opacity: 1;
         }
 
-        /* Better logo visibility in dark mode */
+        /* Keep the same grayscale-to-color interaction in dark mode */
         [data-theme="dark"] .logo-item {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: var(--radius-md);
-            padding: 0.5rem 1rem;
+            background: var(--logo-surface);
         }
 
         [data-theme="dark"] .logo-item img {
-            filter: grayscale(0%);
-            opacity: 0.9;
+            filter: grayscale(100%);
+            opacity: 0.6;
         }
 
         [data-theme="dark"] .logo-item:hover img {
+            filter: grayscale(0%);
             opacity: 1;
         }
 
-        .logo-item.text-logo img {
-            max-height: 40px;
-            max-width: 120px;
+        [data-theme="dark"] .logo-item img,
+        [data-theme="dark"] .education-program-logo img,
+        [data-theme="dark"] .education-compact-logo img,
+        [data-theme="dark"] .education-journey-logo img,
+        [data-theme="dark"] .research-logo img {
+            mix-blend-mode: multiply;
         }
 
         @media (max-width: 768px) {
             .logos-grid {
-                gap: 1.5rem;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.75rem;
             }
-            .logo-item img {
-                max-height: 40px;
-                max-width: 100px;
+
+            .logo-item {
+                height: 64px;
+                padding: 0.65rem 0.8rem;
             }
         }
 
@@ -502,6 +517,44 @@
             text-decoration: underline;
         }
 
+        .news-toggle-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .news-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 0.9rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            font: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .news-toggle:hover {
+            background: var(--accent-light);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .news-toggle svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.2s ease;
+        }
+
+        .news-toggle[aria-expanded="true"] svg {
+            transform: rotate(180deg);
+        }
+
         /* Publications */
         .publications-grid {
             display: flex;
@@ -515,6 +568,7 @@
             border-radius: var(--radius-lg);
             padding: 1.5rem;
             transition: all 0.2s ease;
+            position: relative;
             
             /* ADDED: Flexbox for Side-by-Side layout */
             display: flex;
@@ -526,6 +580,7 @@
             box-shadow: var(--shadow-lg);
             border-color: var(--border-hover);
             transform: translateY(-2px);
+            z-index: 10;
         }
 
         /* Teaser image container - left side */
@@ -533,45 +588,41 @@
             flex-shrink: 0;
             width: 200px;
             max-width: 200px;
+            position: relative;
+            z-index: 1;
         }
 
         .publication-teaser img {
+            display: block;
             width: 100%;
             height: auto;
             aspect-ratio: 16 / 10;
             border-radius: var(--radius-md);
             border: 1px solid var(--border);
             object-fit: cover;
+            background: var(--bg-card);
             box-shadow: var(--shadow-sm);
-            transition: all 0.2s ease;
+            transition: transform 0.24s ease, box-shadow 0.24s ease;
         }
 
-        .publication-teaser:hover img {
-            box-shadow: var(--shadow-md);
-            transform: scale(1.02);
+        @media (hover: hover) and (pointer: fine) {
+            .publication-teaser {
+                cursor: zoom-in;
+            }
+
+            .publication-teaser:hover img {
+                cursor: zoom-out;
+                box-shadow: var(--shadow-lg);
+                object-fit: contain;
+                transform: scale(2.1);
+                transform-origin: top left;
+            }
         }
 
         /* Content wrapper - right side */
         .publication-content {
             flex: 1;
             min-width: 0;
-        }
-
-        /* Responsive - stack on mobile */
-        @media (max-width: 768px) {
-            .publication-card {
-                flex-direction: column;
-            }
-
-            .publication-teaser {
-                width: 100%;
-                max-width: 100%;
-                margin-bottom: 1rem;
-            }
-
-            .publication-teaser img {
-                aspect-ratio: 16 / 9;
-            }
         }
 
         .publication-venue {
@@ -590,6 +641,11 @@
         .publication-venue.aaai {
             background: #fef3c7;
             color: #d97706;
+        }
+
+        .publication-venue.icml {
+            background: #ffe4e6;
+            color: #be123c;
         }
 
         .publication-venue.icassp {
@@ -666,6 +722,103 @@
             height: 14px;
         }
 
+        .publication-meta {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .publications-grid {
+                gap: 0.875rem;
+            }
+
+            .publication-card {
+                display: grid;
+                grid-template-columns: 120px minmax(0, 1fr);
+                gap: 1rem;
+                align-items: start;
+                padding: 1rem;
+            }
+
+            .publication-card:hover {
+                transform: none;
+            }
+
+            .publication-teaser {
+                width: 120px;
+                max-width: 120px;
+                margin: 0;
+            }
+
+            .publication-teaser img {
+                aspect-ratio: 16 / 10;
+                object-fit: contain;
+                background: var(--bg-primary);
+            }
+
+            @media (hover: hover) and (pointer: fine) {
+                .publication-teaser:hover img {
+                    transform: scale(2.6);
+                }
+            }
+
+            .publication-venue {
+                padding: 0.2rem 0.55rem;
+                margin-bottom: 0.45rem;
+                font-size: 0.65rem;
+            }
+
+            .publication-meta {
+                font-size: 0.7rem;
+                margin-bottom: 0.4rem;
+            }
+
+            .publication-title {
+                font-size: 0.95rem;
+                line-height: 1.4;
+                margin-bottom: 0.4rem;
+            }
+
+            .publication-authors {
+                font-size: 0.78rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .publication-links {
+                gap: 0.35rem;
+            }
+
+            .publication-link {
+                gap: 0.2rem;
+                padding: 0.25rem 0.5rem;
+                font-size: 0.7rem;
+            }
+
+            .publication-link svg {
+                width: 12px;
+                height: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .publication-card {
+                grid-template-columns: 96px minmax(0, 1fr);
+                gap: 0.75rem;
+                padding: 0.75rem;
+            }
+
+            .publication-teaser {
+                width: 96px;
+                max-width: 96px;
+            }
+
+            .publication-title {
+                font-size: 0.88rem;
+                line-height: 1.35;
+            }
+        }
+
         /* Education */
         .education-grid {
             display: grid;
@@ -740,6 +893,329 @@
             font-weight: 600;
             border-radius: 9999px;
             margin-top: 0.75rem;
+        }
+
+        .education-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .education-featured {
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .education-featured:hover,
+        .education-compact:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-md);
+        }
+
+        .education-featured-top,
+        .education-compact {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .education-featured-identity,
+        .education-compact-identity {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            min-width: 0;
+        }
+
+        .education-program-logo,
+        .education-compact-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 56px;
+            height: 56px;
+            padding: 0.5rem;
+            background: var(--logo-surface);
+            border: 1px solid var(--logo-border);
+            border-radius: var(--radius-md);
+        }
+
+        .education-program-logo img,
+        .education-compact-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .education-program-title {
+            font-family: 'Merriweather', serif;
+            font-size: 1.25rem;
+            line-height: 1.4;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .education-period {
+            flex-shrink: 0;
+            padding: 0.35rem 0.75rem;
+            background: var(--accent-light);
+            border-radius: 9999px;
+            color: var(--accent);
+            font-size: 0.82rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .education-summary {
+            max-width: 780px;
+            margin-top: 1.25rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .education-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .education-highlight {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.35rem 0.7rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 9999px;
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .education-highlight.primary {
+            background: #dcfce7;
+            border-color: #bbf7d0;
+            color: #166534;
+        }
+
+        [data-theme="dark"] .education-highlight.primary {
+            background: #14532d;
+            border-color: #166534;
+            color: #dcfce7;
+        }
+
+        .education-subheading {
+            margin-top: 1.75rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .education-journey {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.75rem;
+            list-style: none;
+        }
+
+        .education-journey-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 0;
+            padding: 0.75rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+        }
+
+        .education-journey-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            padding: 0.35rem;
+            background: var(--logo-surface);
+            border-radius: var(--radius-sm);
+        }
+
+        .education-journey-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .education-journey-school {
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            font-weight: 600;
+            line-height: 1.35;
+        }
+
+        .education-journey-place {
+            color: var(--text-muted);
+            font-size: 0.72rem;
+        }
+
+        .education-degree-list {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.75rem;
+        }
+
+        .education-degree {
+            padding: 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+        }
+
+        .education-degree-name {
+            color: var(--text-primary);
+            font-size: 0.86rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 0.25rem;
+        }
+
+        .education-degree-school {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        .education-compact {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem 1.5rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .education-compact.current {
+            border-left: 4px solid var(--accent);
+        }
+
+        .education-current-heading {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .education-current-heading .education-title {
+            margin-bottom: 0;
+        }
+
+        .education-current-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            color: var(--accent);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .education-current-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .education-compact-logo {
+            width: 48px;
+            height: 48px;
+        }
+
+        .education-compact .education-details {
+            margin-top: 0.35rem;
+        }
+
+        .research-current {
+            grid-column: 1 / -1;
+            border-left: 4px solid var(--accent);
+        }
+
+        .research-current-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .research-current-top .education-header {
+            margin-bottom: 0;
+        }
+
+        .research-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 64px;
+            height: 48px;
+            padding: 0.4rem;
+            background: var(--logo-surface);
+            border: 1px solid var(--logo-border);
+            border-radius: var(--radius-md);
+        }
+
+        .research-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .research-current .education-details {
+            max-width: 800px;
+            margin-top: 1rem;
+        }
+
+        .experience-period {
+            display: inline-flex;
+            padding: 0;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.76rem;
+            font-weight: 500;
+        }
+
+        .research-intern-period {
+            margin-top: 0.45rem;
+        }
+
+        .research-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .research-topic {
+            padding: 0.3rem 0.65rem;
+            background: var(--accent-light);
+            border-radius: 9999px;
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 600;
         }
 
         /* Contact Section */
@@ -833,6 +1309,90 @@
             flex-wrap: wrap;
         }
 
+        .visitor-map-section {
+            max-width: var(--container-max);
+            margin: -3rem auto 3rem;
+            padding: 0 1.5rem;
+        }
+
+        .visitor-map-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            padding: 1.5rem 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+        }
+
+        .visitor-map-heading {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .visitor-map-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            background: var(--accent-light);
+            border-radius: var(--radius-md);
+            color: var(--accent);
+        }
+
+        .visitor-map-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .visitor-map-title {
+            font-family: 'Merriweather', serif;
+            font-size: 1.15rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .visitor-map-description {
+            max-width: 460px;
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+        }
+
+        .visitor-map {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            min-width: 200px;
+            min-height: 139px;
+        }
+
+        .visitor-map #mapmyvisitors-widget {
+            margin: 0 !important;
+            overflow: hidden !important;
+            border: 1px solid var(--border) !important;
+            border-radius: var(--radius-lg) !important;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .visitor-map #mapmyvisitors-widget > .mapmyvisitors-map-container {
+            overflow: hidden;
+            background-color: var(--accent) !important;
+            border-radius: calc(var(--radius-lg) - 1px);
+        }
+
+        .visitor-map .mapmyvisitors-loading > div {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.8rem !important;
+            font-weight: 500;
+            text-shadow: none !important;
+        }
+
         /* Footer */
         .footer {
             text-align: center;
@@ -865,6 +1425,12 @@
             width: 24px;
             height: 24px;
             color: var(--text-primary);
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
         }
 
         /* Theme Toggle Button */
@@ -911,6 +1477,28 @@
 
         /* Responsive */
         @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: var(--bg-card);
+                flex-direction: column;
+                padding: 1rem 1.5rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow-lg);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
             .hero {
                 grid-template-columns: 1fr;
                 gap: 2rem;
@@ -952,28 +1540,6 @@
         }
 
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 64px;
-                left: 0;
-                right: 0;
-                background: white;
-                flex-direction: column;
-                padding: 1rem 1.5rem;
-                gap: 1rem;
-                border-bottom: 1px solid var(--border);
-                box-shadow: var(--shadow-lg);
-            }
-
-            .nav-links.open {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
             .section-title {
                 font-size: 1.5rem;
             }
@@ -990,8 +1556,87 @@
                 grid-template-columns: 1fr;
             }
 
+            .education-featured {
+                padding: 1.25rem;
+            }
+
+            .education-featured-top,
+            .education-compact {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .education-period {
+                align-self: flex-start;
+            }
+
+            .education-journey {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .education-degree-list {
+                grid-template-columns: 1fr;
+            }
+
+            .research-current-top {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .service-item {
+                display: grid;
+                grid-template-columns: 40px minmax(0, 1fr);
+                align-items: start;
+            }
+
+            .service-item .service-content {
+                grid-column: 2;
+            }
+
+            .service-item .service-content + .service-content {
+                padding-top: 1rem;
+                border-top: 1px solid var(--border);
+            }
+
+            .service-item:hover {
+                transform: none;
+            }
+
+            .visitor-map-section {
+                margin-top: -3rem;
+            }
+
+            .visitor-map-card {
+                flex-direction: column;
+                padding: 1.5rem;
+                text-align: center;
+            }
+
+            .visitor-map-heading {
+                flex-direction: column;
+            }
+
             .contact {
                 padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .education-program-logo {
+                width: 48px;
+                height: 48px;
+            }
+
+            .education-program-title {
+                font-size: 1.05rem;
+            }
+
+            .education-journey {
+                grid-template-columns: 1fr;
+            }
+
+            .education-compact {
+                padding: 1.25rem;
             }
         }
 
@@ -1015,31 +1660,47 @@
         .delay-2 { animation-delay: 0.2s; }
         .delay-3 { animation-delay: 0.3s; }
         .delay-4 { animation-delay: 0.4s; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
     </style>
 </head>
 <body>
     <nav class="nav">
         <div class="nav-container">
-            <a href="#" class="nav-logo">Dong Han</a>
+            <a href="#about" class="nav-logo">Dong Han</a>
             <div style="display: flex; align-items: center;">
                 <ul class="nav-links" id="navLinks">
                     <li><a href="#about" class="active">About</a></li>
                     <li><a href="#news">News</a></li>
                     <li><a href="#publications">Publications</a></li>
                     <li><a href="#education">Education</a></li>
+                    <li><a href="#research">Research</a></li>
                     <li><a href="#service">Service</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
-                    <svg class="moon-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button class="theme-toggle" id="themeToggle" type="button" onclick="toggleTheme()" aria-label="Switch to dark mode">
+                    <svg class="moon-icon" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
                     </svg>
-                    <svg class="sun-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="sun-icon" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
                     </svg>
                 </button>
-                <button class="mobile-menu-btn" onclick="toggleMenu()">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button class="mobile-menu-btn" id="mobileMenuButton" type="button" onclick="toggleMenu()" aria-label="Open navigation menu" aria-controls="navLinks" aria-expanded="false">
+                    <svg aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
                 </button>
@@ -1051,24 +1712,29 @@
         <section id="about" class="hero">
             <div class="hero-content">
                 <h1 class="hero-name">Dong Han <span class="hero-name-zh">(韩东)</span></h1>
-                <p class="hero-title">PhD Candidate</p>
-                <p class="hero-affiliation">HUAWEI & Friedrich Schiller University Jena</p>
+                <p class="hero-title">Industrial PhD Candidate</p>
+                <p class="hero-affiliation">HUAWEI · Friedrich Schiller University Jena</p>
                 <p class="hero-bio">
-                    Currently working as a PhD candidate in the domain of <strong>privacy-preserving computer vision</strong>.
-                    I completed the Erasmus Mundus Joint Master in Computational Colour and Spectral Imaging (<strong>COSI</strong>)
-                    with full scholarships (49,000 Euros) to study in four different countries and obtained triple master degrees.
+                    I am an industrial PhD candidate working on <strong>privacy-preserving computer vision</strong>.
+                    Previously, I completed the Erasmus Mundus Joint Master in Computational Colour and Spectral Imaging
+                    (<strong>COSI</strong>) with a €49,000 full scholarship, studying across four countries and earning three master's degrees.
                 </p>
                 <div class="hero-links">
                     <a href="files/CV_dong.pdf" class="btn btn-primary" target="_blank">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
-                        Download CV
+                        View CV
                     </a>
                     <div class="social-links">
                         <a href="mailto:clydeeurope22@gmail.com" class="social-link" title="Email">
                             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </a>
+                        <a href="https://scholar.google.com/citations?user=WSIbARcAAAAJ&amp;hl=en" class="social-link" title="Google Scholar" aria-label="Google Scholar" target="_blank">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3L2 8l10 5 8-4v6m-13-4v5.5c3 2 7 2 10 0V11"/>
                             </svg>
                         </a>
                         <a href="https://www.linkedin.com/in/dong-han-059730151/" class="social-link" title="LinkedIn" target="_blank">
@@ -1095,28 +1761,28 @@
             </div>
             <div class="logos-grid">
                 <a href="https://www.huawei.com/cn/" class="logo-item" target="_blank" title="Huawei">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Huawei_Standard_logo.svg/250px-Huawei_Standard_logo.svg.png" alt="Huawei Logo">
+                    <img src="image/huawei_logo.png" alt="Huawei Logo">
                 </a>
                 <a href="https://www.uni-jena.de/" class="logo-item" target="_blank" title="Friedrich Schiller University Jena">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Uni-Jena-logo.png" alt="University of Jena Logo">
+                    <img src="image/jena_logo.png" alt="Friedrich Schiller University Jena Logo">
                 </a>
                 <a href="https://www.uef.fi/fi/" class="logo-item" target="_blank" title="University of Eastern Finland">
-                    <img src="https://sites.uef.fi/drd-hum-2024/wp-content/uploads/sites/422/2024/01/UEF_eng_pysty_1_black-scaled.jpg" alt="UEF Logo">
+                    <img src="image/UEF_Logo.png" alt="University of Eastern Finland Logo">
                 </a>
                 <a href="https://www.ugr.es/en/" class="logo-item" target="_blank" title="University of Granada">
-                    <img src="https://ecalfor.eu/wp-content/uploads/2021/07/logo-ugr-.png" alt="University of Granada Logo">
+                    <img src="image/UGR_Logo.png" alt="University of Granada Logo">
                 </a>
                 <a href="https://www.ntnu.edu/" class="logo-item" target="_blank" title="Norwegian University of Science and Technology">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Logo-Ntnu.svg/960px-Logo-Ntnu.svg.png" alt="NTNU Logo">
+                    <img src="image/NTNU_Logo.png" alt="Norwegian University of Science and Technology Logo">
                 </a>
                 <a href="https://laboratoirehubertcurien.univ-st-etienne.fr/en/index.html" class="logo-item" target="_blank" title="Laboratoire Hubert Curien">
-                    <img src="https://laboratoirehubertcurien.univ-st-etienne.fr/skins/labhcurien/resources//img/logo.png" alt="LabHC Logo">
+                    <img src="image/LabHC_Logo.png" alt="Laboratoire Hubert Curien Logo">
                 </a>
-                <a href="https://www.mihalygroup.com/" class="logo-item text-logo" target="_blank" title="Mihaly Group">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Vector_Logic.svg/200px-Vector_Logic.svg.png" alt="Mihaly" style="filter: grayscale(100%) brightness(0); opacity: 0.8;">
+                <a href="https://www.mihalygroup.com/" class="logo-item" target="_blank" title="Mihaly Group">
+                    <img src="image/Mihalygroup_logo.png" alt="Mihaly Group Logo">
                 </a>
                 <a href="https://en.wikipedia.org/wiki/Dalian_University" class="logo-item" target="_blank" title="Dalian University">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/c/c4/Dalian_University_Logo.png" alt="Dalian University Logo">
+                    <img src="image/Dalian_University_Logo.png" alt="Dalian University Logo">
                 </a>
             </div>
         </div>
@@ -1128,54 +1794,64 @@
             </div>
             <div class="timeline">
                 <div class="timeline-item highlight">
-                    <span class="timeline-date">2026/5</span>
+                    <span class="timeline-date">May 2026</span>
                     <div class="timeline-content">
-                        <p class="timeline-title">Paper accepted at ICML 2026</p>
-                        <p class="timeline-description">Our Paper on <em>ForceForget: Reinforcement Concept Removal for Enhancing Safety in Text-to-Image Models</em> has been accepted at ICML 2026 in Seoul.</p>
+                        <p class="timeline-title">Paper accepted to ICML 2026</p>
+                        <p class="timeline-description">Our paper, <em>ForceForget: Reinforcement Concept Removal for Enhancing Safety in Text-to-Image Models</em>, was accepted to ICML 2026 in Seoul.</p>
                     </div>
                 </div>
                 <div class="timeline-item highlight">
-                    <span class="timeline-date">2025/11</span>
+                    <span class="timeline-date">November 2025</span>
                     <div class="timeline-content">
-                        <p class="timeline-title">Paper accepted at AAAI 2026</p>
-                        <p class="timeline-description">Our Paper on <em>Realistic Face Reconstruction from Facial Embeddings via Diffusion Models</em> has been accepted at AAAI 2026 in Singapore.</p>
+                        <p class="timeline-title">Paper accepted to AAAI 2026</p>
+                        <p class="timeline-description">Our paper, <em>Realistic Face Reconstruction from Facial Embeddings via Diffusion Models</em>, was accepted to AAAI 2026 in Singapore.</p>
                     </div>
                 </div>
                 <div class="timeline-item highlight">
-                    <span class="timeline-date">2024/12</span>
+                    <span class="timeline-date">December 2024</span>
                     <div class="timeline-content">
-                        <p class="timeline-title">Paper accepted at ICASSP 2025</p>
-                        <p class="timeline-description">Our Paper on <em>Diffusion-based Identity-Preserving Facial Privacy Protection</em> has been accepted at ICASSP 2025 in Hyderabad, India. <a href="https://ieeexplore.ieee.org/abstract/document/10890829" class="timeline-link" target="_blank">[link]</a></p>
+                        <p class="timeline-title">Paper accepted to ICASSP 2025</p>
+                        <p class="timeline-description">Our paper, <em>Diffusion-based Identity-Preserving Facial Privacy Protection</em>, was accepted to ICASSP 2025 in Hyderabad, India. <a href="https://ieeexplore.ieee.org/abstract/document/10890829" class="timeline-link" target="_blank">[IEEE]</a></p>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <span class="timeline-date">2024/06</span>
-                    <div class="timeline-content">
-                        <p class="timeline-title">Paper accepted at ICIP 2024</p>
-                        <p class="timeline-description">Our Paper on <em>Robust Skin Color Driven Privacy-Preserving Face Recognition via Function Secret Sharing</em> has been accepted at ICIP 2024 in Abu Dhabi, UAE. <a href="https://arxiv.org/abs/2407.05045" class="timeline-link" target="_blank">[arxiv]</a></p>
+                <div class="news-older" id="olderNews" hidden>
+                    <div class="timeline-item">
+                        <span class="timeline-date">June 2024</span>
+                        <div class="timeline-content">
+                            <p class="timeline-title">Paper accepted to ICIP 2024</p>
+                            <p class="timeline-description">Our paper, <em>Robust Skin Color Driven Privacy-Preserving Face Recognition via Function Secret Sharing</em>, was accepted to ICIP 2024 in Abu Dhabi, UAE. <a href="https://arxiv.org/abs/2407.05045" class="timeline-link" target="_blank">[arXiv]</a></p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">December 2023</span>
+                        <div class="timeline-content">
+                            <p class="timeline-title">Paper accepted to VISAPP 2024</p>
+                            <p class="timeline-description">Our paper, <em>Privacy-Preserving Face Recognition in Hybrid Frequency-Color Domain</em>, was accepted to VISAPP 2024 in Rome, Italy. <a href="https://arxiv.org/abs/2401.13386" class="timeline-link" target="_blank">[arXiv]</a></p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">March 2023</span>
+                        <div class="timeline-content">
+                            <p class="timeline-title">Began industrial PhD</p>
+                            <p class="timeline-description">Began an industrial PhD at HUAWEI in collaboration with Friedrich Schiller University Jena.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">September 2022</span>
+                        <div class="timeline-content">
+                            <p class="timeline-title">Completed COSI</p>
+                            <p class="timeline-description">Completed the Erasmus Mundus Joint Master in Computational Colour and Spectral Imaging (COSI).</p>
+                        </div>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <span class="timeline-date">2023/12</span>
-                    <div class="timeline-content">
-                        <p class="timeline-title">Paper accepted at VISAPP 2024</p>
-                        <p class="timeline-description">Our Paper on <em>Privacy-Preserving Face Recognition in Hybrid Frequency-Color Domain</em> has been accepted at VISAPP 2024 in Rome, Italy. <a href="https://arxiv.org/abs/2401.13386" class="timeline-link" target="_blank">[arxiv]</a></p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-date">2023/03</span>
-                    <div class="timeline-content">
-                        <p class="timeline-title">Started PhD Candidate</p>
-                        <p class="timeline-description">Started as a PhD Candidate at HUAWEI and Friedrich Schiller University Jena.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-date">2022/09</span>
-                    <div class="timeline-content">
-                        <p class="timeline-title">Graduated from COSI</p>
-                        <p class="timeline-description">Graduated from Erasmus Mundus Joint Master in Computational Colour and Spectral Imaging (COSI).</p>
-                    </div>
-                </div>
+            </div>
+            <div class="news-toggle-wrapper">
+                <button class="news-toggle" id="newsToggle" type="button" aria-controls="olderNews" aria-expanded="false">
+                    <span>Show older news</span>
+                    <svg aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 9l6 6 6-6"/>
+                    </svg>
+                </button>
             </div>
         </section>
 
@@ -1190,13 +1866,13 @@
                         <img src="paper_image/ICML_teaser.png" alt="ICML 2026 Teaser">
                     </div>
                     <div class="publication-content">
-                        <span class="publication-venue aaai">ICML 2026</span>
-                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">Acceptance Rate: 26.6%</p>
+                        <span class="publication-venue icml">ICML 2026</span>
+                        <p class="publication-meta">Acceptance rate: 26.6%</p>
                         <h3 class="publication-title">
                             <a href="http://arxiv.org/abs/2606.14351" target="_blank">ForceForget: Reinforcement Concept Removal for Enhancing Safety in Text-to-Image Models</a>
                         </h3>
                         <p class="publication-authors">
-                            <span class="author-highlight">Dong Han</span>, et al.
+                            <span class="author-highlight">Dong Han</span> et al.
                         </p>
                         <div class="publication-links">
                             <a href="http://arxiv.org/abs/2606.14351" class="publication-link" target="_blank">
@@ -1213,12 +1889,12 @@
                     </div>
                     <div class="publication-content">
                         <span class="publication-venue aaai">AAAI 2026</span>
-                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">Acceptance Rate: 17.6%</p>
+                        <p class="publication-meta">Acceptance rate: 17.6%</p>
                         <h3 class="publication-title">
-                            <a href="#">Realistic Face Reconstruction from Facial Embeddings via Diffusion Models</a>
+                            <a href="https://arxiv.org/abs/2602.13168" target="_blank">Realistic Face Reconstruction from Facial Embeddings via Diffusion Models</a>
                         </h3>
                         <p class="publication-authors">
-                            <span class="author-highlight">Dong Han</span>, et al.
+                            <span class="author-highlight">Dong Han</span> et al.
                         </p>
                         <div class="publication-links">
                             <a href="https://arxiv.org/abs/2602.13168" class="publication-link" target="_blank">
@@ -1228,10 +1904,6 @@
                             <a href="https://ojs.aaai.org/index.php/AAAI/article/view/42453" class="publication-link" target="_blank">
                                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                                 PDF
-                            </a>
-                            <!-- <a href="#" class="publication-link">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-                                Code -->
                             </a>
                         </div>
                     </div>
@@ -1247,16 +1919,12 @@
                             <a href="https://ieeexplore.ieee.org/abstract/document/10890829" target="_blank">Diffusion-based Identity-Preserving Facial Privacy Protection</a>
                         </h3>
                         <p class="publication-authors">
-                            <span class="author-highlight">Dong Han</span>, et al.
+                            <span class="author-highlight">Dong Han</span> et al.
                         </p>
                         <div class="publication-links">
                             <a href="https://ieeexplore.ieee.org/abstract/document/10890829" class="publication-link" target="_blank">
                                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                                 IEEE
-                            </a>
-                            <a href="#" class="publication-link">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                PDF
                             </a>
                         </div>
                     </div>
@@ -1272,7 +1940,7 @@
                             <a href="https://arxiv.org/abs/2407.05045" target="_blank">Robust Skin Color Driven Privacy-Preserving Face Recognition via Function Secret Sharing</a>
                         </h3>
                         <p class="publication-authors">
-                            <span class="author-highlight">Dong Han</span>, et al.
+                            <span class="author-highlight">Dong Han</span> et al.
                         </p>
                         <div class="publication-links">
                             <a href="https://arxiv.org/abs/2407.05045" class="publication-link" target="_blank">
@@ -1297,7 +1965,7 @@
                             <a href="https://arxiv.org/abs/2401.13386" target="_blank">Privacy-Preserving Face Recognition in Hybrid Frequency-Color Domain</a>
                         </h3>
                         <p class="publication-authors">
-                            <span class="author-highlight">Dong Han</span>, et al.
+                            <span class="author-highlight">Dong Han</span> et al.
                         </p>
                         <div class="publication-links">
                             <a href="https://arxiv.org/abs/2401.13386" class="publication-link" target="_blank">
@@ -1320,100 +1988,110 @@
                 <h2 class="section-title">Education</h2>
                 <div class="section-line"></div>
             </div>
-            <div class="education-grid">
-                <div class="education-card">
-                    <div class="education-header">
-                        <div class="education-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/>
-                            </svg>
+            <div class="education-layout">
+                <article class="education-compact current">
+                    <div class="education-compact-identity">
+                        <div class="education-compact-logo">
+                            <img src="image/jena_logo.png" alt="Friedrich Schiller University Jena logo">
                         </div>
                         <div>
-                            <h3 class="education-title">Erasmus Mundus Joint Master (COSI)</h3>
-                            <p class="education-institution">Computational Colour and Spectral Imaging</p>
+                            <div class="education-current-heading">
+                                <h3 class="education-title">PhD in Privacy-Preserving Computer Vision</h3>
+                                <span class="education-current-badge">Current</span>
+                            </div>
+                            <p class="education-institution">Friedrich Schiller University Jena · Germany</p>
+                            <p class="education-details">Industrial PhD programme funded by HUAWEI.</p>
                         </div>
                     </div>
-                    <p class="education-details">
-                        Full scholarships (49,000 Euros) to study in four different countries. Obtained triple master degrees from NTNU (Norway), University of Granada (Spain), and University of Eastern Finland (Finland).
-                    </p>
-                    <span class="education-badge">
-                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                        Triple Master Degree
-                    </span>
-                </div>
+                    <span class="education-period experience-period">2023–Present</span>
+                </article>
 
-                <div class="education-card">
-                    <div class="education-header">
-                        <div class="education-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                            </svg>
+                <article class="education-featured">
+                    <div class="education-featured-top">
+                        <div class="education-featured-identity">
+                            <div class="education-program-logo">
+                                <img src="image/COSI_Logo.png" alt="COSI logo">
+                            </div>
+                            <div>
+                                <h3 class="education-program-title">Erasmus Mundus Joint Master — COSI</h3>
+                                <p class="education-institution">Computational Colour and Spectral Imaging</p>
+                            </div>
                         </div>
-                        <div>
-                            <h3 class="education-title">Master in Colour and Visual Computing</h3>
-                            <p class="education-institution">Norwegian University of Science and Technology (NTNU)</p>
-                        </div>
+                        <span class="education-period experience-period">2020–2022</span>
                     </div>
-                    <p class="education-details">
-                        Master of Science in Colour and Visual Computing. Located in Gjøvik, Norway.
-                    </p>
-                </div>
 
-                <div class="education-card">
-                    <div class="education-header">
-                        <div class="education-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="education-title">Master in Photonics, Image and Vision</h3>
-                            <p class="education-institution">University of Granada</p>
-                        </div>
-                    </div>
-                    <p class="education-details">
-                        Master in Photonics, Image and Vision. Located in Granada, Spain.
+                    <p class="education-summary">
+                        An Erasmus Mundus joint programme across four European countries, completed with a full scholarship and three master's degrees.
                     </p>
-                </div>
 
-                <div class="education-card">
-                    <div class="education-header">
-                        <div class="education-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="education-title">Master in Computational Spectral Imaging</h3>
-                            <p class="education-institution">University of Eastern Finland</p>
-                        </div>
+                    <div class="education-highlights" aria-label="Programme highlights">
+                        <span class="education-highlight">Erasmus Mundus</span>
+                        <span class="education-highlight">€49,000 Full Scholarship</span>
+                        <span class="education-highlight primary">Three Master's Degrees</span>
                     </div>
-                    <p class="education-details">
-                        Master in Computational Spectral Imaging. Located in Joensuu, Finland.
-                    </p>
-                </div>
 
-                <div class="education-card">
-                    <div class="education-header">
-                        <div class="education-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                            </svg>
+                    <h4 class="education-subheading">Study Path</h4>
+                    <ol class="education-journey">
+                        <li class="education-journey-item">
+                            <div class="education-journey-logo"><img src="image/NTNU_Logo.png" alt="NTNU logo"></div>
+                            <div>
+                                <p class="education-journey-school">NTNU</p>
+                                <p class="education-journey-place">Gjøvik, Norway</p>
+                            </div>
+                        </li>
+                        <li class="education-journey-item">
+                            <div class="education-journey-logo"><img src="image/UGR_Logo.png" alt="University of Granada logo"></div>
+                            <div>
+                                <p class="education-journey-school">University of Granada</p>
+                                <p class="education-journey-place">Granada, Spain</p>
+                            </div>
+                        </li>
+                        <li class="education-journey-item">
+                            <div class="education-journey-logo"><img src="image/UEF_Logo.png" alt="University of Eastern Finland logo"></div>
+                            <div>
+                                <p class="education-journey-school">University of Eastern Finland</p>
+                                <p class="education-journey-place">Joensuu, Finland</p>
+                            </div>
+                        </li>
+                        <li class="education-journey-item">
+                            <div class="education-journey-logo"><img src="image/UJM_Logo.png" alt="Université Jean Monnet logo"></div>
+                            <div>
+                                <p class="education-journey-school">Université Jean Monnet</p>
+                                <p class="education-journey-place">Saint-Étienne, France</p>
+                            </div>
+                        </li>
+                    </ol>
+
+                    <h4 class="education-subheading">Degrees Awarded</h4>
+                    <div class="education-degree-list">
+                        <div class="education-degree">
+                            <p class="education-degree-name">M.Sc. in Colour and Visual Computing</p>
+                            <p class="education-degree-school">NTNU</p>
                         </div>
-                        <div>
-                            <h3 class="education-title">Bachelor in Optoelectronic Information Science and Engineering</h3>
-                            <p class="education-institution">Dalian University</p>
+                        <div class="education-degree">
+                            <p class="education-degree-name">M.Sc. in Photonics, Image and Vision</p>
+                            <p class="education-degree-school">University of Granada</p>
+                        </div>
+                        <div class="education-degree">
+                            <p class="education-degree-name">M.Sc. in Computational Spectral Imaging</p>
+                            <p class="education-degree-school">University of Eastern Finland</p>
                         </div>
                     </div>
-                    <p class="education-details">
-                        Bachelor's degree in Optoelectronic Information Science and Engineering. Located in Dalian, China.
-                    </p>
-                </div>
+                </article>
+
+                <article class="education-compact">
+                    <div class="education-compact-identity">
+                        <div class="education-compact-logo">
+                            <img src="image/Dalian_University_Logo.png" alt="Dalian University logo">
+                        </div>
+                        <div>
+                            <h3 class="education-title">B.Sc. in Optoelectronic Information Science and Engineering</h3>
+                            <p class="education-institution">Dalian University · Dalian, China</p>
+                            <p class="education-details">Bachelor's degree focused on optoelectronic information science and engineering.</p>
+                        </div>
+                    </div>
+                    <span class="education-period experience-period">2016–2020</span>
+                </article>
             </div>
         </section>
 
@@ -1423,37 +2101,62 @@
                 <div class="section-line"></div>
             </div>
             <div class="education-grid">
+                <article class="education-card research-current">
+                    <div class="research-current-top">
+                        <div class="education-header">
+                            <div class="research-logo">
+                                <img src="image/huawei_logo.png" alt="HUAWEI logo">
+                            </div>
+                            <div>
+                                <div class="education-current-heading">
+                                    <h3 class="education-title">Industrial PhD Candidate</h3>
+                                    <span class="education-current-badge">Current</span>
+                                </div>
+                                <p class="education-institution">HUAWEI · Germany</p>
+                            </div>
+                        </div>
+                        <span class="education-period experience-period">03/2023–Present</span>
+                    </div>
+                    <p class="education-details">
+                        Research focuses on trustworthy AI, privacy preservation, biometric data security, and the safety of generative models and AI agents, in collaboration with Friedrich Schiller University Jena.
+                    </p>
+                    <div class="research-topics" aria-label="Research topics">
+                        <span class="research-topic">Trustworthy AI</span>
+                        <span class="research-topic">Privacy Preservation</span>
+                        <span class="research-topic">Biometric Security</span>
+                        <span class="research-topic">Generative Model Safety</span>
+                    </div>
+                </article>
+
                 <div class="education-card">
                     <div class="education-header">
-                        <div class="education-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
+                        <div class="research-logo">
+                            <img src="image/LabHC_Logo.png" alt="Laboratoire Hubert Curien logo">
                         </div>
                         <div>
                             <h3 class="education-title">Research Intern</h3>
-                            <p class="education-institution">Laboratoire Hubert Curien, Université Jean Monnet</p>
+                            <p class="education-institution">Laboratoire Hubert Curien · Saint-Étienne, France</p>
+                            <span class="education-period experience-period research-intern-period">01/2022–08/2022</span>
                         </div>
                     </div>
                     <p class="education-details">
-                        Wrote master thesis on <em>Deep Learning-Based Illumination SPD Estimation from an RGB Camera</em> under the supervision of Dr. Philippe Colantoni and Dr. Éric Dinet.
+                        Completed a master's thesis titled <em>Deep Learning-Based Illumination SPD Estimation from an RGB Camera</em> under the supervision of Dr Philippe Colantoni and Dr Éric Dinet.
                     </p>
                 </div>
 
                 <div class="education-card">
                     <div class="education-header">
-                        <div class="education-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
-                            </svg>
+                        <div class="research-logo">
+                            <img src="image/Mihalygroup_logo.png" alt="Mihaly Group logo">
                         </div>
                         <div>
                             <h3 class="education-title">Research Intern</h3>
-                            <p class="education-institution">Mihaly Group, France</p>
+                            <p class="education-institution">Mihaly Group · Paris, France</p>
+                            <span class="education-period experience-period research-intern-period">06/2021–07/2021</span>
                         </div>
                     </div>
                     <p class="education-details">
-                        Worked as a 3D printing research intern. Located in Paris, France.
+                        Conducted research on image-processing methods for 3D printing.
                     </p>
                 </div>
             </div>
@@ -1474,19 +2177,19 @@
                     <div class="service-content">
                         <h3 class="service-title">Conference Reviewer</h3>
                         <p class="service-description">
-                            <strong> ECMLPKDD (2024-2026)</strong> - European Conference on Machine Learning and Principles and Practice of Knowledge Discovery in Databases
+                            <strong>ECML PKDD (2024–2026)</strong> — European Conference on Machine Learning and Principles and Practice of Knowledge Discovery in Databases
                         </p>
                         <p class="service-description">
-                            <strong>ICASSP 2026</strong> - IEEE International Conference on Acoustics, Speech and Signal Processing
+                            <strong>ICASSP 2026</strong> — IEEE International Conference on Acoustics, Speech and Signal Processing
                         </p>
                         <p class="service-description">
-                            <strong>ICML 2026</strong> - International Conference on Machine Learning
+                            <strong>ICML 2026</strong> — International Conference on Machine Learning
                         </p>
                     </div>
                     <div class="service-content">
                         <h3 class="service-title">Journal Reviewer</h3>
                         <p class="service-description">
-                            <strong> IJCV 2026</strong> - International Journal of Computer Vision
+                            <strong>IJCV 2026</strong> — International Journal of Computer Vision
                         </p>
                     </div>
                 </div>
@@ -1497,14 +2200,20 @@
             <div class="contact">
                 <h2 class="contact-title">Get in Touch</h2>
                 <p class="contact-description">
-                    I'm always interested in collaborating on research projects, discussing new ideas, or answering questions about my work.
+                    I welcome research collaborations, discussions of new ideas, and questions about my work.
                 </p>
                 <div class="contact-links">
                     <a href="mailto:clydeeurope22@gmail.com" class="btn btn-primary">
                         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>
-                        Email Me
+                        Email
+                    </a>
+                    <a href="https://scholar.google.com/citations?user=WSIbARcAAAAJ&amp;hl=en" class="btn btn-secondary" target="_blank">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3L2 8l10 5 8-4v6m-13-4v5.5c3 2 7 2 10 0V11"/>
+                        </svg>
+                        Google Scholar
                     </a>
                     <a href="https://www.linkedin.com/in/dong-han-059730151/" class="btn btn-secondary" target="_blank">
                         <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
@@ -1523,12 +2232,28 @@
         </section>
     </div>
 
-    <div style="text-align:center;margin:1rem 0;">
-        <script type='text/javascript' id='mapmyvisitors' src='https://mapmyvisitors.com/map.js?cl=ffffff&w=200&t=tt&d=kASR5JsT-bmiIbnZko8aWI6Rf-_B1nSdI7Q7N5nFK5s'></script>
-    </div>
+    <section class="visitor-map-section" aria-labelledby="visitor-map-title">
+        <div class="visitor-map-card">
+            <div class="visitor-map-heading">
+                <div class="visitor-map-icon" aria-hidden="true">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="9" stroke-width="2"/>
+                        <path stroke-linecap="round" stroke-width="2" d="M3 12h18M12 3c2.2 2.5 3.3 5.5 3.3 9S14.2 18.5 12 21M12 3C9.8 5.5 8.7 8.5 8.7 12S9.8 18.5 12 21"/>
+                    </svg>
+                </div>
+                <div>
+                    <h2 class="visitor-map-title" id="visitor-map-title">Visitors Around the World</h2>
+                    <p class="visitor-map-description">A snapshot of where visitors to this academic homepage come from.</p>
+                </div>
+            </div>
+            <div class="visitor-map" aria-label="Interactive visitor map">
+                <script type="text/javascript" id="mapmyvisitors" src="https://mapmyvisitors.com/map.js?cl=ffffff&amp;w=200&amp;t=tt&amp;d=kASR5JsT-bmiIbnZko8aWI6Rf-_B1nSdI7Q7N5nFK5s"></script>
+            </div>
+        </div>
+    </section>
 
     <footer class="footer">
-        <p>Web template from <a href="https://github.com/jonbarron/website" target="_blank">Jon Barron</a>. All content &copy; Dong Han.</p>
+        <p>Website template adapted from <a href="https://github.com/jonbarron/website" target="_blank">Jon Barron</a>. &copy; Dong Han.</p>
     </footer>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
@@ -1540,6 +2265,12 @@
 
             html.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
+            updateThemeToggleLabel(newTheme);
+        }
+
+        function updateThemeToggleLabel(theme) {
+            const themeToggle = document.getElementById('themeToggle');
+            themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
         }
 
         // Load saved theme on page load
@@ -1551,13 +2282,29 @@
             if (theme === 'dark') {
                 document.documentElement.setAttribute('data-theme', 'dark');
             }
+
+            updateThemeToggleLabel(theme);
         })();
 
         // Mobile menu toggle
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('open');
+            const menuButton = document.getElementById('mobileMenuButton');
+            const isOpen = navLinks.classList.toggle('open');
+            menuButton.setAttribute('aria-expanded', String(isOpen));
+            menuButton.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
         }
+
+        // Expand and collapse older news items
+        const olderNews = document.getElementById('olderNews');
+        const newsToggle = document.getElementById('newsToggle');
+
+        newsToggle.addEventListener('click', () => {
+            const willExpand = olderNews.hidden;
+            olderNews.hidden = !willExpand;
+            newsToggle.setAttribute('aria-expanded', String(willExpand));
+            newsToggle.querySelector('span').textContent = willExpand ? 'Show less' : 'Show older news';
+        });
 
         // Active nav link on scroll
         const sections = document.querySelectorAll('section[id]');
@@ -1585,7 +2332,24 @@
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 document.getElementById('navLinks').classList.remove('open');
+                const menuButton = document.getElementById('mobileMenuButton');
+                menuButton.setAttribute('aria-expanded', 'false');
+                menuButton.setAttribute('aria-label', 'Open navigation menu');
             });
+        });
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape') {
+                const navLinks = document.getElementById('navLinks');
+                const menuButton = document.getElementById('mobileMenuButton');
+
+                if (navLinks.classList.contains('open')) {
+                    navLinks.classList.remove('open');
+                    menuButton.setAttribute('aria-expanded', 'false');
+                    menuButton.setAttribute('aria-label', 'Open navigation menu');
+                    menuButton.focus();
+                }
+            }
         });
     </script>
 </body>
